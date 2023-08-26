@@ -1,4 +1,3 @@
-#
 #/bin/usr/python3
 from uuid import uuid4
 from datetime import datetime
@@ -15,25 +14,41 @@ class BaseModel:
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
     def __init__(self, *args, **kwargs):
-        self.id = str(uuid4())
-        self.created_at = datetime.utcnow()
-        self.updated_at = datetime.utcnow()
-        for key, value in kwargs.items():
-            if key == '__class__':
-                pass
-
-
+        if kwargs:
+            for key, value in kwargs.items():
+                if key != "__class__":
+                    setattr(self, key, value)
+                    if "id" not in kwargs:
+                        self.id = str(uuid4())
+                    elif "created_at" not in kwargs:
+                        self.created_at = self.updated_at = datetime.utcnow()
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.utcnow()
+            self.updated_at = datetime.utcnow()
+                    
     def __str__(self):
-        pass
+        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+
 
     def to_dict(self):
-        pass
-        
+        obj_dict = self.__dict__.copy()
+        if "__sa_instance_state" in obj_dict:
+            obj_dict.pop("_sa_instance_state")
+        for key, value in self.__dict__.items():
+              if key in ("created_at", "updated_at"):
+                obj_dict[key] = value.isoformat()
+        obj_dict["__class__"] = self.__class__.__name__
+
+        return obj_dict
+
     def save(self):
+        self.updated_at = datetime.utcnow()
         models.storage.new()
-    
+        models.storage.save()
+
     def delete(self):
-        pass
+        nodels.storage.delete()
 
     
         
