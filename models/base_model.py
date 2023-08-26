@@ -48,7 +48,7 @@ class BaseModel:
         models.storage.save()
 
     def delete(self):
-        nodels.storage.delete()
+        models.storage.delete()
 
     
         

@@ -1,6 +1,58 @@
 #!/bin/usr/python3
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, scoped_session
+from models.base_model import Base
+import os
 
 class DBStorage:
     __engine = None
     __session = None
     
+    def __init__(self):
+        user = os.environ.get('MYSQL_USER')
+        pwd = os.environ.get('MYSQL_PWD')
+        host = os.environ.get('MYSQL_HOST', 'localhost')
+        db = os.environ.get('MYSQL_DB')
+        env = os.environ.get('MYSQL_ENV', 'production') 
+
+        self.__engine = create_engine(f'mysql+mysqldb://{user}:{pwd}@{host}/{db}, pool_pre_ping=True')
+
+        Session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
+        self.__session = Session()
+
+        def all(self, cls=None):
+            classes = []
+            objects = {}
+            if cls is None:
+                for cls in classes:
+                    query_result = self.__session.query(cls).all()
+                    for obj in query_result:
+                        key = f'{cls.__name__}.{obj.id}'
+                        objects[key] = obj
+                    return objects
+                
+
+        def new(self, obj):
+            self.__session.add(obj)
+            
+        def save(self):
+            self.__session.commit()
+
+        def delete(self, obj=None):
+            if obj:
+                self.__session.delete(obj)
+
+        def reload(self):
+            Base.metadata.create_all(self.__engine)
+            self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
+
+            
+
+
+
+                
+
+
+
+
+
