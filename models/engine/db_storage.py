@@ -23,10 +23,6 @@ class DBStorage:
 
         self.__engine = create_engine(f'mysql+mysqldb:///{user}:{pwd}@{host}/{db}', pool_pre_ping=True)
 
-
-        Session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
-        self.__session = Session()
-
         def all(self, cls=None):
             classes = [Customer, Order, Product, CartItem, Category]
             objects = {}
@@ -57,7 +53,8 @@ class DBStorage:
 
         def reload(self):
             Base.metadata.create_all(self.__engine)
-            self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
+            Session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
+            self.__session = Session
 
             
 

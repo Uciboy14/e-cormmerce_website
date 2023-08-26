@@ -1,7 +1,14 @@
 #!/bin/usr/python3
-from base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship
+import os
+import sys
+
+working_path = os.getcwd()
+parent_dir = os.path.dirname(working_path)
+sys.path.append(working_path)
+
+from models.base_model import BaseModel, Base
 
 class Category(BaseModel, Base):
     __tablename__ = 'categories'
