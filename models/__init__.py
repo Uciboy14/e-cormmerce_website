@@ -1,6 +1,12 @@
 #!/bin.usr/python3
+import os
 import sys
-sys.path.append("/data/data/com.termux/files/home/e-cormmerce_website/models/engine/")
-from db_storage import DBStorage
-storage = DbStorage()
-storage.reload()
+
+working_path = os.getcwd()
+parent_dir = os.path.dirname(working_path)
+sys.path.append(working_path)
+
+from models.engine.db_storage import DBStorage
+storage = DBStorage()
+#storage.reload()
+

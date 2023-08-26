@@ -4,14 +4,11 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 import os
 import sys
 
-sys.path.append("/data/data/com.termux/files/home/e-cormmerce_website/models/")
+working_path = os.getcwd()
+parent_dir = os.path.dirname(working_path)
+sys.path.append(working_path)
 
-import base_model
-from customer import Customer
-from order import Order
-from cartitem import CartItem
-from product import Product
-from category import Category
+from models.base_model import Base
 
 class DBStorage:
     __engine = None
@@ -24,7 +21,8 @@ class DBStorage:
         db = "ecormmerce_db" #os.environ.get('MYSQL_DB')
         #env = os.environ.get('MYSQL_ENV', 'production') 
 
-        self.__engine = create_engine(f'mysql+mysqldb://{user}:{pwd}@{host}/{db}, pool_pre_ping=True')
+        self.__engine = create_engine(f'mysql+mysqldb:///{user}:{pwd}@{host}/{db}', pool_pre_ping=True)
+
 
         Session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
         self.__session = Session()
@@ -58,7 +56,7 @@ class DBStorage:
                 self.__session.delete(obj)
 
         def reload(self):
-            base_model.Base.metadata.create_all(self.__engine)
+            Base.metadata.create_all(self.__engine)
             self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
 
             
