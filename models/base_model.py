@@ -3,6 +3,7 @@ from uuid import uuid4
 from datetime import datetime
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.orm import declarative_base
+from __init__ import storage
 
 time_format = "%Y-%m-%dT%H:%M:%S.%f"
 
@@ -44,11 +45,11 @@ class BaseModel:
 
     def save(self):
         self.updated_at = datetime.utcnow()
-        models.storage.new()
-        models.storage.save()
+        storage.new()
+        storage.save()
 
     def delete(self):
-        models.storage.delete()
+        storage.delete()
 
     
         
