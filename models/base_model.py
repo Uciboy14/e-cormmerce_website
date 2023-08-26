@@ -52,8 +52,8 @@ class BaseModel:
 
     def save(self):
         self.updated_at = datetime.utcnow()
-        models.storage.__session.add(self)
-        models.storage.__session.commit()
+        models.storage.new(self)
+        models.storage.save()
             
     def delete(self):
         models.storage.delete()
