@@ -12,18 +12,18 @@ sys.path.append("/data/data/com.termux/files/home/e-cormmerce_website/")
 
 #import models
 from models.base_model import BaseModel, Base
-from models.customer import Customer
-from models.order import Order
-from models.product import Product
-from models.category import Category
+#from models.customer import Customer
+#from models.order import Order
+#from models.product import Product
+#from models.category import Category
 #from models.cartitem import CartItem
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-classes = {"Customer": Customer, "Product": Product,
-           "Order": Order, "Category": Category, "CartItem": CartItem}
+#classes = {"Customer": Customer, "Product": Product,
+           #"Order": Order, "Category": Category, "CartItem": CartItem}
 
 
 class DBStorage:
@@ -33,7 +33,7 @@ class DBStorage:
 
     def __init__(self):
         """Instantiate a DBStorage object"""
-        #HBNB_MYSQL_USER = getenv('HBNB_MYSQL_USER')
+        HBNB_MYSQL_USER = getenv('HBNB_MYSQL_USER')
         #HBNB_MYSQL_PWD = getenv('HBNB_MYSQL_PWD')
         #HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST')
         #HBNB_MYSQL_DB = getenv('HBNB_MYSQL_DB')
@@ -49,7 +49,14 @@ class DBStorage:
 
     def all(self, cls=None):
         """query on the current database session"""
+        from models.customer import Customer
+        from models.order import Order
+        from models.product import Product
+        from models.category import Category
         from models.cartitem import CartItem
+
+        classes = {"Customer": Customer, "Product": Product, "Order": Order, "Category": Category, "CartItem": CartItem}
+
         new_dict = {}
         for clss in classes:
             if cls is None or cls is classes[clss] or cls is clss:
