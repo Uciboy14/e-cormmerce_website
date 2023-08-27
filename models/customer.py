@@ -8,6 +8,10 @@ working_path = os.getcwd()
 parent_dir = os.path.dirname(working_path)
 sys.path.append("/data/data/com.termux/files/home/e-cormmerce_website/")
 
+from models.cartitem import CartItem
+from models.order import Order
+from models.category import Category
+from models.product import Product
 from models.base_model import BaseModel, Base
 
 class Customer(BaseModel, Base):

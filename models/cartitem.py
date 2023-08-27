@@ -7,6 +7,7 @@ working_path = os.getcwd()
 parent_dir = os.path.dirname(working_path)
 sys.path.append("/data/data/com.termux/files/home/e-cormmerce_website/")
 
+import models
 from models.base_model import BaseModel, Base
 
 class CartItem(BaseModel, Base):

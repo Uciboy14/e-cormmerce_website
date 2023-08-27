@@ -8,22 +8,23 @@ import sys
 
 working_path = os.getcwd()
 parent_dir = os.path.dirname(working_path)
-sys.path.append(working_path)
+sys.path.append("/data/data/com.termux/files/home/e-cormmerce_website/")
 
 #import models
 from models.base_model import BaseModel, Base
-#from models.customer import Customer
-#from models.order import Order
-#from models.product import Product
-#from models.category import Category
-#from models.cartitem import CartItem
-from os import getenv
+from models.customer import Customer
+from models.order import Order
+from models.product import Product
+from models.category import Category
+from models.cartitem import CartItem
+
+#import sqlalchemy
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-#classes = {"Customer": Customer, "Product": Product,
-           #"Order": Order, "Category": Category, "CartItem": CartItem}
+classes = {"Customer": Customer, "Product": Product,
+           "Order": Order, "Category": Category, "CartItem": CartItem}
 
 
 class DBStorage:
@@ -33,11 +34,11 @@ class DBStorage:
 
     def __init__(self):
         """Instantiate a DBStorage object"""
-        MYSQL_USER = getenv('HBNB_MYSQL_USER')
-        MYSQL_PWD = getenv('HBNB_MYSQL_PWD')
-        MYSQL_HOST = getenv('HBNB_MYSQL_HOST')
-        MYSQL_DB = getenv('HBNB_MYSQL_DB')
-        MYSQL_ENV = getenv('HBNB_ENV')
+        MYSQL_USER = os.getenv('MYSQL_USER')
+        MYSQL_PWD = os.getenv('MYSQL_PWD')
+        MYSQL_HOST = os.getenv('MYSQL_HOST')
+        MYSQL_DB = os.getenv('MYSQL_DB')
+        MYSQL_ENV = os.getenv('MYSQL_ENV')
         DIALECT = os.getenv('DIALECT')
         DRIVER = os.getenv('DRIVER')
 
@@ -46,17 +47,11 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
         elif MYSQL_ENV == 'dev':
+            print("Using Dev Environmentf")
             self.__engine = create_engine('{}+{}://{}:{}@{}/{}'.format(DIALECT, DRIVER, MYSQL_USER, MYSQL_PWD, MYSQL_HOST, MYSQL_DB))
        
     def all(self, cls=None):
         """query on the current database session"""
-        from models.customer import Customer
-        from models.order import Order
-        from models.product import Product
-        from models.category import Category
-        from models.cartitem import CartItem
-
-        classes = {"Customer": Customer, "Product": Product, "Order": Order, "Category": Category, "CartItem": CartItem}
 
         new_dict = {}
         for clss in classes:

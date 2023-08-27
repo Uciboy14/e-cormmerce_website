@@ -7,6 +7,7 @@ working_path = os.getcwd()
 parent_dir = os.path.dirname(working_path)
 sys.path.append(working_path)
 
+import models
 from models.base_model import BaseModel, Base
 
 class Product(BaseModel, Base):
