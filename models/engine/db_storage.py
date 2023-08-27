@@ -8,7 +8,7 @@ import sys
 
 working_path = os.getcwd()
 parent_dir = os.path.dirname(working_path)
-sys.path.append("/data/data/com.termux/files/home/e-cormmerce_website/")
+sys.path.append(working_path)
 
 #import models
 from models.base_model import BaseModel, Base
@@ -33,20 +33,21 @@ class DBStorage:
 
     def __init__(self):
         """Instantiate a DBStorage object"""
-        HBNB_MYSQL_USER = getenv('HBNB_MYSQL_USER')
-        HBNB_MYSQL_PWD = getenv('HBNB_MYSQL_PWD')
-        HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST')
-        HBNB_MYSQL_DB = getenv('HBNB_MYSQL_DB')
-        HBNB_ENV = getenv('HBNB_ENV')
-        self.__engine = create_engine("mysql+mysqlconnector://hbnb_dev:four1cup@127.0.0.1/hbnb_dev_db", pool_pre_ping=True)
-        #self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
-                                      #format(HBNB_MYSQL_USER,
-                                             #HBNB_MYSQL_PWD,
-                                             #HBNB_MYSQL_HOST,
-                                             #HBNB_MYSQL_DB))
-        #if HBNB_ENV == "test":
-        Base.metadata.drop_all(self.__engine)
+        MYSQL_USER = getenv('HBNB_MYSQL_USER')
+        MYSQL_PWD = getenv('HBNB_MYSQL_PWD')
+        MYSQL_HOST = getenv('HBNB_MYSQL_HOST')
+        MYSQL_DB = getenv('HBNB_MYSQL_DB')
+        MYSQL_ENV = getenv('HBNB_ENV')
+        DIALECT = os.getenv('DIALECT')
+        DRIVER = os.getenv('DRIVER')
 
+        if  MYSQL_ENV == 'test':
+            self.__engine = create_engine("mysql+mysqlconnector://hbnb_dev:four1cup@127.0.0.1/hbnb_dev_db", pool_pre_ping=True)
+            Base.metadata.drop_all(self.__engine)
+
+        elif MYSQL_ENV == 'dev':
+            self.__engine = create_engine('{}+{}://{}:{}@{}/{}'.format(DIALECT, DRIVER, MYSQL_USER, MYSQL_PWD, MYSQL_HOST, MYSQL_DB))
+       
     def all(self, cls=None):
         """query on the current database session"""
         from models.customer import Customer
