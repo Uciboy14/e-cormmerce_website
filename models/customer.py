@@ -6,7 +6,7 @@ import sys
 
 working_path = os.getcwd()
 parent_dir = os.path.dirname(working_path)
-sys.path.append(working_path)
+sys.path.append("/data/data/com.termux/files/home/e-cormmerce_website/")
 
 from models.base_model import BaseModel, Base
 
@@ -15,5 +15,5 @@ class Customer(BaseModel, Base):
     username = Column(String(50), unique=True, nullable=False)
     email = Column(String(100), unique=True, nullable=False)
     password = Column(String(100), nullable=False)
-    #cart_items = relationship("CartItem", back_populates="customer")
-    #orders = relationship('Order', backref='customer')
+    cart_items = relationship("CartItem", back_populates="customer")
+    orders = relationship('Order', back_populates='customer')

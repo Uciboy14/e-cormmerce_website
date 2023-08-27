@@ -15,6 +15,8 @@ class Product(BaseModel, Base):
     description = Column(Text)
     price = Column(Float, nullable=False)  
     image_url = Column(String(255))
-    category_id = Column(Integer, ForeignKey('categories.id'))
+    category_id = Column(String(125), ForeignKey('categories.id'))
+
     cart_items = relationship("CartItem", back_populates="product")
+    category = relationship("Category", back_populates="products")
 

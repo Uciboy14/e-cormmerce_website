@@ -13,5 +13,5 @@ from models.base_model import BaseModel, Base
 class Category(BaseModel, Base):
     __tablename__ = 'categories'
     name = Column(String(50), nullable=False)
-    products = relationship('Product', backref='category')
+    products = relationship('Product', back_populates='category')
 
