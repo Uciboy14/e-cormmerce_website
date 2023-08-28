@@ -22,6 +22,7 @@ from models.cartitem import CartItem
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.exc import IntegrityError
 
 classes = {"Customer": Customer, "Product": Product,
            "Order": Order, "Category": Category, "CartItem": CartItem}
@@ -47,7 +48,7 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
         elif MYSQL_ENV == 'dev':
-            print("Using Dev Environmentf")
+            print("Using dev Environment")
             self.__engine = create_engine('{}+{}://{}:{}@{}/{}'.format(DIALECT, DRIVER, MYSQL_USER, MYSQL_PWD, MYSQL_HOST, MYSQL_DB))
        
     def all(self, cls=None):
@@ -64,10 +65,17 @@ class DBStorage:
 
     def new(self, obj):
         """add the object to the current database session"""
-        self.__session.add(obj)
+        try:
+            self.__session.add(obj)
+        except IntegrityError as e:
+            self.__session.rollback()
+            print('Integrity Error ', e)
+        except Exception as e:
+            self.__session.rollback()
+            print('Exception Occured: ', e)
 
     def save(self):
-        """commit all changes of the current database session"""
+        """commifout all changes of the current database session"""
         self.__session.commit()
 
     def delete(self, obj=None):

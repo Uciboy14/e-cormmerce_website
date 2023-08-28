@@ -3,6 +3,7 @@ from uuid import uuid4
 from datetime import datetime
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.orm import declarative_base
+from sqlalchemy.exc import IntegrityError
 import os
 import sys
 
@@ -51,10 +52,15 @@ class BaseModel:
         return obj_dict
 
     def save(self):
-        self.updated_at = datetime.utcnow()
-        models.storage.new(self)
-        models.storage.save()
-            
+        try:
+            self.updated_at = datetime.utcnow()
+            models.storage.new(self)
+            models.storage.save()
+        except IntegrityError as e:
+            print('Integrity Error: ', e)
+        except Exception as e:
+            print(e)
+
     def delete(self):
         models.storage.delete()
 
