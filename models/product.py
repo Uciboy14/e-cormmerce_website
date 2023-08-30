@@ -5,7 +5,7 @@ import sys
 
 working_path = os.getcwd()
 parent_dir = os.path.dirname(working_path)
-sys.path.append(working_path)
+sys.path.append('/home/uc-code_tech/my-projects/e-cormmerce_website/')
 
 import models
 from models.base_model import BaseModel, Base

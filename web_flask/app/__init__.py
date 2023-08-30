@@ -1,28 +1,35 @@
+#!/bin/usr/python3
+import os
 import sys
 
-#sys.path.append("/home/uc-code_tech/my-projects/e-cormmerce_website/web_flask/")
+parent_dir = os.getcwd()
+working_dir = os.path.dirname(parent_dir)
+sys.path.append('/home/uc-code_tech/my-projects/e-cormmerce_website/web_flask/app/')
 
-from flask import Flask
-from app.home_route import home_bp
-from app.category_route import category_bp
-from app.cart_route import cart_bp
-from app.checkout_route import checkout_bp
-from app.product_route import product_bp
+from flask import Flask, render_template 
+from config import config
+#from_bootstrap import Bootstrap
+#flask_mail import Moment
+from flask_sqlalchemy import SQLAlchemy
+import os
+import sys
 
-def create_app():
+#bootstrap = Bootstrap()
+#mail = Mail()
+#moment = Moment()
+db = SQLAlchemy()
+
+def create_app(config_name):
 	app = Flask(__name__)
+	app.config.from_object(config[config_name])
+	config[config_name].init_app(app)
 
-	#configuration
-	app.config.from_pyfile('../config.py')
+	#bootstrap/init_app(app)
+	#mail.init_app(app)
+	db.init_app(app)
 
-	#Register blueprints
-	app.register_blueprint(home_bp)
-	app.register_blueprint(category_bp)
-	app.register_blueprint(cart_bp)
-	app.register_blueprint(checkout_bp)
-	app.register_blueprint(product_bp)
-
-	#from app.api import api_bp
-	#app.register_blueprint(api_bp, url_prefix='/api') 
+	# attach routes and custom error pages here
+	from main import route_bp
+	app.register_blueprint(route_bp)
 
 	return app
