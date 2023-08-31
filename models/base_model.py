@@ -8,10 +8,10 @@ import os
 import sys
 
 working_path = os.getcwd()
-parent_dir = os.path.dirname(working_path)
-sys.path.append(working_path)
+work_dir = os.path.abspath(os.path.dirname(__file__))
+sys.path.append(work_dir)
 
-import models
+print(work_dir)
 
 time_format = "%Y-%m-%dT%H:%M:%S.%f"
 

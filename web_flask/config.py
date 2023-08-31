@@ -1,7 +1,11 @@
 #!/bin/usr/python3
 
 import os
-basedir = os.path.abspath(os.path.dirname(__file__))
+base_dir = os.path.abspath(os.path.dirname(__file__))
+
+# Configure the path for the SQLite database
+db_filename = 'myshop.db'  # Your database filename
+db_path = os.path.join(base_dir, db_filename)
 
 class Config:
 	SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard_to_guess_string'
@@ -21,14 +25,14 @@ class Config:
 
 class DevelopmentConfig(Config):
 	DEBUG = True 
-	SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URI') or 'sqlite:///' + os.path.join(basedir, 'data-dev/sqllite')
+	SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URI') or f'sqlite:///{db_path}'
 
 class TestingConfig(Config):
 	TESTING = True
 	SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URI') or 'sqlite://'
 
 class ProductionConfig(Config):
-	SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URI') or 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+	SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URI') or 'sqlite:///' + os.path.join(base_dir, 'data.sqlite')
 
 
 config = {
@@ -39,4 +43,4 @@ config = {
 	}
 
 
-
+print(DevelopmentConfig().SQLALCHEMY_DATABASE_URI)

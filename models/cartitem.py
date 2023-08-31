@@ -7,7 +7,6 @@ working_path = os.getcwd()
 parent_dir = os.path.dirname(working_path)
 sys.path.append("/data/data/com.termux/files/home/e-cormmerce_website/")
 
-import models
 from models.base_model import BaseModel, Base
 
 class CartItem(BaseModel, Base):
@@ -16,5 +15,3 @@ class CartItem(BaseModel, Base):
     customer_id = Column(String(125), ForeignKey('customers.id'))
     product_id = Column(String(125), ForeignKey('products.id'))
     quantity = Column(Integer, nullable=False)
-    customer = relationship("Customer", back_populates="cart_items")
-    product = relationship("Product", back_populates="cart_items")
