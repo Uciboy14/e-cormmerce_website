@@ -24,12 +24,17 @@ def create_app(config_name):
 	app = Flask(__name__)
 	app.config.from_object(config[config_name])
 	config[config_name].init_app(app)
-
 	#bootstrap/init_app(app)
 	#mail.init_app(app)
 
 	# attach routes and custom error pages here
-	from app.main import views_bp
-	app.register_blueprint(views_bp)
+	from app.main import route_bp
+	app.register_blueprint(route_bp)
 
 	return app
+
+if __name__ == '__main__':
+    app = create_app('default')
+    @app.teardown_appcontext
+    def teardown_appcontext(exception=None):
+        storage.close()

@@ -9,6 +9,7 @@ parent_dir = os.path.abspath(os.path.dirname(__file__))
 print(parent_dir)
 sys.path.append(parent_dir)
 
+from cartitem import CartItem
 from base_model import BaseModel, Base
 from category import Category
 

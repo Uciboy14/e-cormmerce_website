@@ -45,7 +45,10 @@ class DBStorage:
 
         if  MYSQL_ENV == 'test':
             self.__engine = create_engine("mysql+mysqlconnector://hbnb_dev:four1cup@127.0.0.1/hbnb_dev_db", pool_pre_ping=True)
-            Base.metadata.drop_all(self.__engine)
+            Base.metadata.create_all(self.__engine)
+            sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+            Session = scoped_session(sess_factory)
+            self.__session = Session
 
         elif MYSQL_ENV == 'dev':
             print("Using dev Environment")
@@ -113,6 +116,7 @@ class DBStorage:
                     print("Customer not found.")
                 else:
                     print("Retrieved Customer:", retrieved_customer)
+                    return retrieved_customer
             except Exception as e:
                 print("An error occurred:", str(e))
 

@@ -8,10 +8,10 @@ working_path = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(working_path)
 
 
-from cartitem import CartItem
 from category import Category
 from product import Product
 from base_model import BaseModel, Base
+from cartitem import CartItem
 
 class Order(BaseModel, Base):
     __tablename__ = 'orders'
