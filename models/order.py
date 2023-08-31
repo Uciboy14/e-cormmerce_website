@@ -4,19 +4,19 @@ from sqlalchemy.orm import sessionmaker, relationship
 import os
 import sys
 
-working_path = os.getcwd()
-parent_dir = os.path.dirname(working_path)
-sys.path.append("/data/data/com.termux/files/home/e-cormmerce_website/")
+working_path = os.path.abspath(os.path.dirname(__file__))
+sys.path.append(working_path)
 
-from models.cartitem import CartItem
-from models.category import Category
-from models.product import Product
-from models.base_model import BaseModel, Base
+
+from cartitem import CartItem
+from category import Category
+from product import Product
+from base_model import BaseModel, Base
 
 class Order(BaseModel, Base):
     __tablename__ = 'orders'
     customer_id = Column(String(125), ForeignKey('customers.id'))
     total_amount = Column(Float, nullable=False)
     status = Column(String(20), default='Pending')
-    customer = relationship("Customer", back_populates="orders")
+    
 

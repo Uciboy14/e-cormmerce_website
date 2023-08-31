@@ -8,11 +8,10 @@ working_path = os.getcwd()
 parent_dir = os.path.dirname(working_path)
 sys.path.append(working_path)
 
-import models
-from models.base_model import BaseModel, Base
+from base_model import BaseModel, Base
 
 class Category(BaseModel, Base):
     __tablename__ = 'categories'
     name = Column(String(50), nullable=False)
-    products = relationship('Product', back_populates='category')
+    products = relationship('Product', backref='category')
 

@@ -6,17 +6,18 @@ Contains the class DBStorage
 import os
 import sys
 
-working_path = os.getcwd()
-parent_dir = os.path.dirname(working_path)
-sys.path.append("/data/data/com.termux/files/home/e-cormmerce_website/")
+work_dir = os.path.abspath(os.path.dirname(__file__))
+parent_dir = os.path.dirname(work_dir)
+sys.path.append(parent_dir)
+print(parent_dir)
 
 #import models
-from models.base_model import BaseModel, Base
-from models.customer import Customer
-from models.order import Order
-from models.product import Product
-from models.category import Category
-from models.cartitem import CartItem
+from base_model import BaseModel, Base
+from customer import Customer
+from order import Order
+from product import Product
+from category import Category
+from cartitem import CartItem
 
 #import sqlalchemy
 import sqlalchemy
@@ -24,8 +25,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.exc import IntegrityError
 
-classes = {"Customer": Customer, "Product": Product,
-           "Order": Order, "Category": Category, "CartItem": CartItem}
+classes = [Customer, Product, Order, Category, CartItem]
 
 
 class DBStorage:
@@ -50,18 +50,28 @@ class DBStorage:
         elif MYSQL_ENV == 'dev':
             print("Using dev Environment")
             self.__engine = create_engine('{}+{}://{}:{}@{}/{}'.format(DIALECT, DRIVER, MYSQL_USER, MYSQL_PWD, MYSQL_HOST, MYSQL_DB))
-       
+            Base.metadata.create_all(self.__engine)
+            sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+            Session = scoped_session(sess_factory)
+            self.__session = Session
+
     def all(self, cls=None):
         """query on the current database session"""
+        # Import your model classes here to ensure they're recognized by SQLAlchemy
 
-        new_dict = {}
-        for clss in classes:
-            if cls is None or cls is classes[clss] or cls is clss:
-                objs = self.__session.query(classes[clss]).all()
-                for obj in objs:
-                    key = obj.__class__.__name__ + '.' + obj.id
-                    new_dict[key] = obj
-        return (new_dict)
+        if cls is None:
+            classes = [Customer, Product, Category, CartItem, Order]
+        else:
+            classes = [cls]
+
+        result = {}
+        with self.__session() as session:
+            for model_class in classes:
+                objects = session.query(model_class).all()
+                for obj in objects:
+                    result[f"{obj.__class__.__name__}.{obj.id}"] = obj
+        return result
+
 
     def new(self, obj):
         """add the object to the current database session"""
@@ -85,10 +95,10 @@ class DBStorage:
 
     def reload(self):
         """reloads data from the database"""
-        Base.metadata.create_all(self.__engine)
-        sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        Session = scoped_session(sess_factory)
-        self.__session = Session
+        #Base.metadata.create_all(self.__engine)
+        #sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        #Session = scoped_session(sess_factory)
+        #self.__session = Session
 
     def close(self):
         """call remove() method on the private session attribute"""
@@ -98,9 +108,13 @@ class DBStorage:
         """Returns obj based on class name and its ID"""
         if cls is not None and id is not None:
             try:
-                return self.__session.query(classes[cls]).get(id)
-            except:
-                return None
+                retrieved_customer = self.__session.query(cls).get(id)
+                if retrieved_customer is None:
+                    print("Customer not found.")
+                else:
+                    print("Retrieved Customer:", retrieved_customer)
+            except Exception as e:
+                print("An error occurred:", str(e))
 
         return None
 

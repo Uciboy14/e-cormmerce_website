@@ -3,11 +3,10 @@ from sqlalchemy.orm import sessionmaker, relationship
 import os
 import sys
 
-working_path = os.getcwd()
-parent_dir = os.path.dirname(working_path)
-sys.path.append("/data/data/com.termux/files/home/e-cormmerce_website/")
+working_path = os.path.abspath(os.path.dirname(__file__))
+sys.path.append(working_path)
 
-from models.base_model import BaseModel, Base
+from base_model import BaseModel, Base
 
 class CartItem(BaseModel, Base):
     __tablename__ = 'cart_items'

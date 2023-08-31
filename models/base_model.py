@@ -7,9 +7,18 @@ from sqlalchemy.exc import IntegrityError
 import os
 import sys
 
+#from cartitem import CartItem
+#from order import Order
+#from category import Category
+#from product import Product
+#from base_model import BaseModel, Base
+
+
 working_path = os.getcwd()
 work_dir = os.path.abspath(os.path.dirname(__file__))
-sys.path.append(work_dir)
+parent_dir = os.path.dirname(work_dir)
+sys.path.append(parent_dir)
+
 
 print(work_dir)
 
@@ -52,10 +61,11 @@ class BaseModel:
         return obj_dict
 
     def save(self):
+        from models import storage
         try:
             self.updated_at = datetime.utcnow()
-            models.storage.new(self)
-            models.storage.save()
+            storage.new(self)
+            storage.save()
         except IntegrityError as e:
             print('Integrity Error: ', e)
         except Exception as e:

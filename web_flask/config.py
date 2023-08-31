@@ -43,4 +43,4 @@ config = {
 	}
 
 
-print(DevelopmentConfig().SQLALCHEMY_DATABASE_URI)
+
