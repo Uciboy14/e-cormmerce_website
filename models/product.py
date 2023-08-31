@@ -10,6 +10,7 @@ print(parent_dir)
 sys.path.append(parent_dir)
 
 from base_model import BaseModel, Base
+from category import Category
 
 class Product(BaseModel, Base):
     __tablename__ = "products"

@@ -2,14 +2,15 @@
 import os
 import sys
 
-parent_dir = os.getcwd()
-working_dir = os.path.dirname(parent_dir)
-sys.path.append('/data/data/com.termux/files/home/e-cormmerce_website/web_flask/app/')
+working_path = os.path.abspath(os.path.dirname(__file__))
+parent_dir = os.path.dirname(working_path)
+sys.path.append(parent_dir)
+print(parent_dir)
 
 from flask import Flask, render_template 
 from config import config
 #from_bootstrap import Bootstrap
-#flask_mail import Moment
+#flask_mail import Moment__init__
 from flask_sqlalchemy import SQLAlchemy
 import os
 import sys
@@ -17,9 +18,8 @@ import sys
 #bootstrap = Bootstrap()
 #mail = Mail()
 #moment = Moment()
-db = SQLAlchemy()
+#db = SQLAlchemy()
         
-
 def create_app(config_name):
 	app = Flask(__name__)
 	app.config.from_object(config[config_name])
@@ -29,7 +29,7 @@ def create_app(config_name):
 	#mail.init_app(app)
 
 	# attach routes and custom error pages here
-	from main import route_bp
-	app.register_blueprint(route_bp)
+	from app.main import views_bp
+	app.register_blueprint(views_bp)
 
 	return app
