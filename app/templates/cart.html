@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% block body_block%}
+<h1 class="text-center mt-4">My Shopping Cart</h1>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Fields Name</th>
+                            <th scope="col">Sir</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Update</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Row 1 -->
+                        <tr>
+                            <td>Fields Values</td>
+                            <td>No 1.</td>
+                            <td><img src="product1.jpg" alt="Product Image" class="img-thumbnail" width="100"></td>
+                            <td>Product Name</td>
+                            <td>$19.99</td>
+                            <td><input type="number" class="form-control" value="1"></td>
+                            <td><button class="btn btn-primary">Update</button></td>
+                            <td><button class="btn btn-danger">Delete</button></td>
+                        </tr>
+                        <!-- Row 2 (light gray) -->
+                        <tr class="table-light">
+                            <td>Fields Values</td>
+                            <td>No 2.</td>
+                            <td><img src="product2.jpg" alt="Product Image" class="img-thumbnail" width="100"></td>
+                            <td>Another Product</td>
+                            <td>$24.99</td>
+                            <td><input type="number" class="form-control" value="2"></td>
+                            <td><button class="btn btn-primary">Update</button></td>
+                            <td><button class="btn btn-danger">Delete</button></td>
+                        </tr>
+                        <!-- Row 3 -->
+                        <tr>
+                            <td>Fields Values</td>
+                            <td>No 3.</td>
+                            <td><img src="product3.jpg" alt="Product Image" class="img-thumbnail" width="100"></td>
+                            <td>Yet Another Product</td>
+                            <td>$29.99</td>
+                            <td><input type="number" class="form-control" value="3"></td>
+                            <td><button class="btn btn-primary">Update</button></td>
+                            <td><button class="btn btn-danger">Delete</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

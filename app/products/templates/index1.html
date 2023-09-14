@@ -1,0 +1,506 @@
+{% extends 'layout.html' %}
+
+{% block body_block %}
+
+<!-- Header Section -->
+<header class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <!-- University Logo and Branding -->
+        <a class="navbar-brand" href="#">
+            <img src="university-logo.png" alt="University Logo" width="40" height="40">
+            University Name
+        </a>
+
+        <!-- Navigation Menu -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">My Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Search</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Profile</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- User Profile Dropdown Menu -->
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                User Name
+            </button>
+            <div class="dropdown-menu" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="#">Settings</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Logout</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Add your content here -->
+
+<!-- Dashboard Section -->
+<div class="container mt-4">
+    <div class="row">
+        <!-- Document Statistics Widget -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Document Statistics</h5>
+                    <p class="card-text">Total Documents: 1000</p>
+                    <p class="card-text">Uploaded Today: 10</p>
+                    <p class="card-text">Pending Approvals: 5</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications Widget -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Notifications</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item">New document submitted</li>
+                        <li class="list-group-item">Document approval required</li>
+                        <li class="list-group-item">System maintenance scheduled</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity Widget -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Recent Activity</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item">User A uploaded a document</li>
+                        <li class="list-group-item">User B approved a document</li>
+                        <li class="list-group-item">User C submitted an assignment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Access Buttons -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <a href="#" class="btn btn-primary btn-lg btn-block">Upload Document</a>
+        </div>
+        <div class="col-md-6">
+            <a href="#" class="btn btn-success btn-lg btn-block">Search Documents</a>
+        </div>
+    </div>
+</div>
+
+<!-- Document Listing Section -->
+<div class="container mt-4">
+    <h2>Document Listing</h2>
+    <div class="row">
+        <!-- Document Card 1 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="document-icon.png" class="card-img-top" alt="Document Icon">
+                <div class="card-body">
+                    <h5 class="card-title">Document Title 1</h5>
+                    <p class="card-text">Author: User A</p>
+                    <p class="card-text">Date: August 15, 2023</p>
+                    <p class="card-text">Document Type: Research Paper</p>
+                    <!-- Action Buttons -->
+                    <a href="#" class="btn btn-primary">Download</a>
+                    <a href="#" class="btn btn-secondary">Preview</a>
+                    <a href="#" class="btn btn-warning">Edit</a>
+                    <a href="#" class="btn btn-success">Add to Favorites</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Document Card 2 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="document-icon.png" class="card-img-top" alt="Document Icon">
+                <div class="card-body">
+                    <h5 class="card-title">Document Title 2</h5>
+                    <p class="card-text">Author: User B</p>
+                    <p class="card-text">Date: August 20, 2023</p>
+                    <p class="card-text">Document Type: Assignment</p>
+                    <!-- Action Buttons -->
+                    <a href="#" class="btn btn-primary">Download</a>
+                    <a href="#" class="btn btn-secondary">Preview</a>
+                    <!-- Edit button can be disabled if editing is not permitted -->
+                    <a href="#" class="btn btn-warning" disabled>Edit</a>
+                    <a href="#" class="btn btn-success">Add to Favorites</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add more document cards as needed -->
+    </div>
+</div>
+
+<!-- Add your content here -->
+
+
+<!-- Search and Filters Section -->
+<div class="container mt-4">
+    <h2>Search Documents</h2>
+    <div class="row">
+        <!-- Filters (Sidebar) -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Filters</h5>
+                    <!-- Category Filter -->
+                    <div class="form-group">
+                        <label for="categorySelect">Category</label>
+                        <select class="form-control" id="categorySelect">
+                            <option>All Categories</option>
+                            <option>Category 1</option>
+                            <option>Category 2</option>
+                            <!-- Add more categories as needed -->
+                        </select>
+                    </div>
+                    <!-- Department Filter -->
+                    <div class="form-group">
+                        <label for="departmentSelect">Department</label>
+                        <select class="form-control" id="departmentSelect">
+                            <option>All Departments</option>
+                            <option>Department A</option>
+                            <option>Department B</option>
+                            <!-- Add more departments as needed -->
+                        </select>
+                    </div>
+                    <!-- Date Filter -->
+                    <div class="form-group">
+                        <label for="datePicker">Date</label>
+                        <input type="date" class="form-control" id="datePicker">
+                    </div>
+                    <!-- Add more filters as needed -->
+                    <button class="btn btn-primary">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Results -->
+        <div class="col-md-9">
+            <!-- Search Bar -->
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Search documents...">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">Search</button>
+                </div>
+            </div>
+
+            <!-- Display search results here -->
+            <div class="card">
+                <div class="card-body">
+                    <!-- Document cards or search result list -->
+                    <!-- Each result card can be similar to the Document Listing example -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add your content here -->
+<!-- Document Preview Section -->
+<div class="container mt-4">
+    <h2>Document Preview</h2>
+    <div class="row">
+        <!-- Document Viewer -->
+        <div class="col-md-8">
+            <!-- Embed a document viewer or viewer component here -->
+            <!-- For example, you might use an <iframe> or an HTML element with an embedded viewer library -->
+            <iframe src="document-preview.pdf" width="100%" height="600"></iframe>
+        </div>
+
+        <!-- Document Actions -->
+        <div class="col-md-4">
+            <h4>Document Actions</h4>
+            <a href="#" class="btn btn-primary btn-block">View Document</a>
+            <a href="#" class="btn btn-success btn-block">Download Document</a>
+            <a href="#" class="btn btn-secondary btn-block">Close Preview</a>
+
+            <!-- Navigation Controls (For multi-page documents) -->
+            <div class="mt-3">
+                <button class="btn btn-light"><i class="fas fa-chevron-left"></i> Previous Page</button>
+                <span class="mx-2">Page 1 of 10</span>
+                <button class="btn btn-light">Next Page <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add your content here -->
+
+<!-- User Profile Section -->
+<div class="container mt-4">
+    <h2>User Profile</h2>
+    <div class="row">
+        <!-- User Information (Left Column) -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Personal Information</h5>
+                    <form>
+                        <!-- Name -->
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" class="form-control" id="fullName" value="John Doe">
+                        </div>
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" value="johndoe@example.com">
+                        </div>
+                        <!-- User ID -->
+                        <div class="form-group">
+                            <label for="userID">User ID</label>
+                            <input type="text" class="form-control" id="userID" value="johndoe123">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Settings (Right Column) -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Notification Settings</h5>
+                    <form>
+                        <!-- Enable/Disable Notifications -->
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="enableNotifications" checked>
+                            <label class="form-check-label" for="enableNotifications">Enable Notifications</label>
+                        </div>
+                        <!-- Notification Preferences -->
+                        <div class="form-group">
+                            <label for="notificationPreferences">Notification Preferences</label>
+                            <select class="form-control" id="notificationPreferences">
+                                <option>Receive all notifications</option>
+                                <option>Only important notifications</option>
+                                <option>Customize notifications</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Picture Upload -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Profile Picture</h5>
+                    <input type="file" class="form-control-file" id="profilePictureUpload">
+                    <button class="btn btn-primary mt-3">Upload Picture</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add your content here -->
+
+<!-- Notifications Section -->
+<div class="container mt-4">
+    <h2>Notifications</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Notification Panel or Dropdown -->
+            <div class="card">
+                <div class="card-body">
+                    <!-- Notification List -->
+                    <ul class="list-group">
+                        <!-- Notification Item 1 -->
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>System Alert</strong>
+                                <p>This is a system alert message.</p>
+                            </div>
+                            <div>
+                                <span class="badge badge-primary">New</span>
+                                <button class="btn btn-link btn-sm">Mark as Read</button>
+                            </div>
+                        </li>
+                        
+                        <!-- Notification Item 2 -->
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>Document Update</strong>
+                                <p>Document "Document Title" has been updated.</p>
+                            </div>
+                            <div>
+                                <span class="badge badge-secondary">Read</span>
+                                <button class="btn btn-link btn-sm">Dismiss</button>
+                            </div>
+                        </li>
+
+                        <!-- Add more notification items as needed -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add your content here -->
+
+<!-- Document Upload and Submission Section -->
+<div class="container mt-4">
+    <h2>Document Upload and Submission</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <!-- Document Upload Form -->
+            <form>
+                <!-- Document Title -->
+                <div class="form-group">
+                    <label for="documentTitle">Document Title</label>
+                    <input type="text" class="form-control" id="documentTitle" placeholder="Enter document title">
+                </div>
+                <!-- Document Description -->
+                <div class="form-group">
+                    <label for="documentDescription">Document Description</label>
+                    <textarea class="form-control" id="documentDescription" rows="4" placeholder="Enter document description"></textarea>
+                </div>
+                <!-- Document Category -->
+                <div class="form-group">
+                    <label for="documentCategory">Document Category</label>
+                    <select class="form-control" id="documentCategory">
+                        <option>Select a category</option>
+                        <option>Category 1</option>
+                        <option>Category 2</option>
+                        <!-- Add more categories as needed -->
+                    </select>
+                </div>
+                <!-- Upload File -->
+                <div class="form-group">
+                    <label for="fileUpload">Upload File</label>
+                    <input type="file" class="form-control-file" id="fileUpload">
+                </div>
+                <!-- Submit Buttons -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-secondary">Save as Draft</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add your content here -->
+<!-- Workflow Management Section -->
+<div class="container mt-4">
+    <h2>Workflow Management</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <!-- Document Information -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Document Title: Document Title</h5>
+                    <p class="card-text">Author: User A</p>
+                    <p class="card-text">Description: This is a document description.</p>
+                    <p class="card-text">Category: Category 1</p>
+                    <p class="card-text">Date: August 25, 2023</p>
+                </div>
+            </div>
+            
+            <!-- Workflow Actions -->
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Workflow Actions</h5>
+                    <!-- Review -->
+                    <button class="btn btn-primary">Review</button>
+                    <!-- Approve -->
+                    <button class="btn btn-success">Approve</button>
+                    <!-- Reject -->
+                    <button class="btn btn-danger">Reject</button>
+                    <!-- Comment -->
+                    <div class="form-group mt-3">
+                        <label for="comment">Comment:</label>
+                        <textarea class="form-control" id="comment" rows="3"></textarea>
+                    </div>
+                    <!-- Submit Button -->
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add your content here -->
+
+
+<!-- Help and Support Section -->
+<div class="container mt-4">
+    <h2>Help and Support</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <!-- Help Documentation -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Help Documentation</h5>
+                    <p class="card-text">Browse our comprehensive documentation to learn how to use the system.</p>
+                    <a href="help-documentation.html" class="btn btn-primary">View Documentation</a>
+                </div>
+            </div>
+            
+            <!-- Frequently Asked Questions (FAQs) -->
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Frequently Asked Questions (FAQs)</h5>
+                    <p class="card-text">Find answers to common questions in our FAQs section.</p>
+                    <a href="faqs.html" class="btn btn-primary">View FAQs</a>
+                </div>
+            </div>
+            
+            <!-- Contact/Support Page -->
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Contact/Support</h5>
+                    <p class="card-text">If you need assistance, please contact our support team.</p>
+                    <a href="contact-support.html" class="btn btn-primary">Contact Support</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer Section -->
+<footer class="bg-dark text-white mt-4">
+    <div class="container py-3">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Copyright Information -->
+                <p>&copy; 2023 University Document Management System. All Rights Reserved.</p>
+            </div>
+            <div class="col-md-6 text-right">
+                <!-- Links to Privacy Policy and Terms of Use -->
+                <a href="privacy-policy.html" class="text-white mx-2">Privacy Policy</a>
+                <a href="terms-of-use.html" class="text-white mx-2">Terms of Use</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Include Bootstrap JS and jQuery scripts here -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}
